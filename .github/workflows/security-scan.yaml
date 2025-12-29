@@ -62,7 +62,7 @@ jobs:
     #     with:
     #       cmd: |
     #         yq -oj '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
-#          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
+#          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ]' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
     needs: debug-packages
