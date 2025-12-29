@@ -48,9 +48,10 @@ jobs:
         id: config
         run: |
           echo "1. ==================================================================================="
-          yq '.' $CONFIG_FILE
+          yq --help
+          yq -oj '.' $CONFIG_FILE
           echo "2. ==================================================================================="
-          yq '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}'
+          yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}'
           echo "3. ==================================================================================="
 
           packages=$(yq '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}')
