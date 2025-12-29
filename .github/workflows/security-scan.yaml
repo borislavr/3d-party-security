@@ -40,15 +40,19 @@ jobs:
   debug-packages:
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.config.outputs.result }}
+      packages: ${{ steps.config.outputs.packages }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Read config
         id: config
         run: |
-          yq -oj 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE
+          echo "==================================================================================="
+          yq '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}'
+          echo "==================================================================================="
 
+          packages=$(yq '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}')
+          echo "packages=$packages" >> $GITHUB_OUTPUT
     #   - name: Read config
     #     id: config
     #     uses: mikefarah/yq@065b200af9851db0d5132f50bc10b1406ea5c0a8  # v4.50.1
