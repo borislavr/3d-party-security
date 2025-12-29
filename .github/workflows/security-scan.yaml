@@ -47,7 +47,7 @@ jobs:
       - name: Read config
         id: config
         run: |
-          yq -y 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE
+          yq -oj 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE
 
     #   - name: Read config
     #     id: config
