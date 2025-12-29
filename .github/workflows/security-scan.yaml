@@ -47,6 +47,7 @@ jobs:
 
       - name: Read config
         id: config
+        shell: bash
         run: |
           echo "========================================================================================="
           cat $CONFIG_FILE
