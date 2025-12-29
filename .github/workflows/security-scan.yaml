@@ -71,6 +71,7 @@ jobs:
       contents: read
       packages: read
     strategy:
+      fail-fast: false
       matrix:
         package: "${{ fromJson(needs.debug-packages.outputs.packages) }}"
     name: "Run Security Scan (matrix)"
