@@ -48,7 +48,7 @@ jobs:
       - name: Read config
         id: config
         run: |
-          echo "packages=$( yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE)" >> $GITHUB_OUTPUT
+          echo "packages=$(yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE)" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
     needs: debug-packages
