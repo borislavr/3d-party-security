@@ -48,7 +48,15 @@ jobs:
       - name: Read config
         id: config
         run: |
+          echo "========================================================================================="
+          cat $CONFIG_FILE
+          echo "========================================================================================="
+          yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE
+          echo "========================================================================================="
+          yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE | jq -c '.'
+          echo "========================================================================================="
           echo "packages=$(yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE | jq -c '.')"
+          echo "========================================================================================="
           echo "packages=$(yq 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
