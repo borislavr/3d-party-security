@@ -40,27 +40,17 @@ jobs:
   debug-packages:
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.config.outputs.packages }}
+      packages: ${{ steps.config.outputs.result }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-
+# 065b200af9851db0d5132f50bc10b1406ea5c0a8  # v4.50.1 
       - name: Read config
         id: config
-        shell: bash
-        run: |
-          echo "========================================================================================="
-          cat $CONFIG_FILE
-          jq --version
-          yq --version
-          echo "========================================================================================="
-          yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
-          echo "========================================================================================="
-          yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.'
-          echo "========================================================================================="
-          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.')"
-          echo "========================================================================================="
-          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -oj '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
+#          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
     needs: debug-packages
