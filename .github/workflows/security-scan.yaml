@@ -51,6 +51,8 @@ jobs:
     needs: debug-packages
     permissions:
       security-events: write
+      contents: read
+      packages: read
     strategy:
       matrix:
         package: "${{ fromJson(needs.debug-packages.outputs.packages) }}"
