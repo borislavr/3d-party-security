@@ -44,13 +44,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-#  
       - name: Read config
         id: config
-        uses: mikefarah/yq@065b200af9851db0d5132f50bc10b1406ea5c0a8  # v4.50.1
-        with:
-          cmd: |
-            yq -oj '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
+        run: |
+          yq -y 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}' $CONFIG_FILE
+
+    #   - name: Read config
+    #     id: config
+    #     uses: mikefarah/yq@065b200af9851db0d5132f50bc10b1406ea5c0a8  # v4.50.1
+    #     with:
+    #       cmd: |
+    #         yq -oj '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
 #          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
