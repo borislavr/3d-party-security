@@ -54,7 +54,7 @@ jobs:
           yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}'
           echo "3. ==================================================================================="
 
-          packages=$(yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}')
+          packages=$(yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]})')
           echo "packages=$packages" >> $GITHUB_OUTPUT
     #   - name: Read config
     #     id: config
