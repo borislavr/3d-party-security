@@ -1,7 +1,7 @@
 ---
 
-qubership-env-checker:
-  - quay.io/oauth2-proxy/oauth2-proxy:latest
+#qubership-env-checker:
+#  - quay.io/oauth2-proxy/oauth2-proxy:latest
 qubership-jaeger:
   - envoyproxy/envoy:v1.35.2
   - ghcr.io/jaegertracing/spark-dependencies/spark-dependencies:latest
@@ -21,10 +21,10 @@ qubership-logging-operator:
   - graylog/graylog:5.2.7
   - mongo:5.0.19
 qubership-monitoring-operator:
-  - docker.io/bitnami/kubectl:1.33.4
+#  - docker.io/bitnami/kubectl:1.33.4
   - docker.io/bloomberg/goldpinger:3.10.2
-  - docker.io/coreos/kube-state-metrics:v1.9.8
-  - docker.io/grafana-operator/grafana-operator:v4.1.1
+#  - docker.io/coreos/kube-state-metrics:v1.9.8
+#  - docker.io/grafana-operator/grafana-operator:v4.1.1
   - docker.io/grafana/grafana-image-renderer:3.12.9
   - docker.io/grafana/grafana:11.6.5
   - docker.io/jimmidyson/configmap-reload:v0.5.0
@@ -35,8 +35,8 @@ qubership-monitoring-operator:
   - docker.io/prom/node-exporter:v1.9.0
   - docker.io/prom/prometheus:v3.2.1
   - docker.io/prom/pushgateway:v1.11.0
-  - docker.io/prometheus-operator/prometheus-config-reloader:v0.52.1
-  - docker.io/prometheus-operator/prometheus-operator:v0.52.1
+#  - docker.io/prometheus-operator/prometheus-config-reloader:v0.52.1
+#  - docker.io/prometheus-operator/prometheus-operator:v0.52.1
   - docker.io/prometheuscommunity/json-exporter:v0.7.0
   - docker.io/prometheuscommunity/stackdriver-exporter:v0.18.0
   - docker.io/victoriametrics/operator:config-reloader-v0.63.0
