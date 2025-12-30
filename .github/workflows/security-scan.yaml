@@ -56,13 +56,6 @@ jobs:
 
           packages=$(yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]})')
           echo "packages=$packages" >> $GITHUB_OUTPUT
-    #   - name: Read config
-    #     id: config
-    #     uses: mikefarah/yq@065b200af9851db0d5132f50bc10b1406ea5c0a8  # v4.50.1
-    #     with:
-    #       cmd: |
-    #         yq -oj '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ] | { packages: . }' $CONFIG_FILE
-#          echo "packages=$(yq '[ to_entries[] | .key as $repo | .value[] | { repo: $repo, image: . } ]' $CONFIG_FILE | jq -c '.')" >> $GITHUB_OUTPUT
 
   security-scan-matrix:
     needs: debug-packages
@@ -113,8 +106,8 @@ jobs:
             csv2html -o repo/docs/$(basename ${f/.csv}).html $f 
           done
           cd repo
-          # git checkout -b "gh_pages"
-          # git push origin "gh_pages"
+          git config --global user.name "$ACTOR"
+          git config --global user.email "$ACTOR@users.noreply.github.com"
           git add .
           git commit -m "HTML report ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           git push origin "gh_pages"
