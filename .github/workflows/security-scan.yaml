@@ -80,16 +80,39 @@ jobs:
       target: 'docker'
       image: ${{ matrix.package.image }}
 
-#   create-report:
-#     needs: [security-scan-matrix,]
-#     strategy:
-#       matrix:
-#         packages: "${{ fromJson(needs.)}}"
-#     steps:
-#       - name: Install CSV-KIT
-#         run: |
-#           sudo apt-get update
-#           sudo apt-get -y install csvkit
+  create-report:
+    needs: [security-scan-matrix,]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          path: repo
+          persist-credentials: true
+          ref: gh_pages
+      - name: Download artifacts
+        uses: actions/download-artifact@v7
+        with:
+          pattern: '*.sarif'
+          path: ./sarif
+          merge-multiple: true
 
-#       - name: Print packages
-#         run: csv2html 
+      - name: Install CSV-KIT
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install csvkit
+
+      - name: Print packages
+        run: |
+          mkdir -p repo/html
+          for f in $(find ./sarif -name *.csv); do
+            csv2html $f > repo/docs/${f/.csv}.html
+          done
+          cd repo
+          # git checkout -b "gh_pages"
+          # git push origin "gh_pages"
+          git add .
+          git commit -m "HTML report ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          git push origin "gh_pages"
