@@ -81,7 +81,8 @@ jobs:
       image: ${{ matrix.package.image }}
 
   create-report:
-    needs: [security-scan-matrix,]
+    needs: [security-scan-matrix]
+    if: always()
     runs-on: ubuntu-latest
     permissions:
       contents: write
