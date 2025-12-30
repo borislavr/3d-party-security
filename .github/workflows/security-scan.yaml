@@ -103,12 +103,14 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         run: |
+          rm -rf repo/docs/*
           mkdir -p repo/docs
           mkdir -p html
           for f in $(find ./sarif -name *.csv); do
             title=$(basename ${f/.csv})
             title=${title/trivy-}
             title=${title/grype-}
+            echo "Title: ${title}"
             csv2html -o html/$(basename ${f/.csv}).html --title ${title} $f 
           done
           :> repo/docs/trivy.html
