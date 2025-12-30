@@ -103,9 +103,21 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         run: |
-          mkdir -p repo/html
+          mkdir -p repo/docs
+          mkdir -p html
           for f in $(find ./sarif -name *.csv); do
-            csv2html -o repo/docs/$(basename ${f/.csv}).html $f 
+            title=$(basename ${f/.csv})
+            title=${title/trivy-}
+            title=${title/grype-}
+            csv2html -o html/$(basename ${f/.csv}).html --title ${title} $f 
+          done
+          :> repo/docs/trivy.html
+          for f in $(find ./html -name trivy-*); do
+            cat $f >> repo/docs/trivy.html
+          done
+          :> repo/docs/grype.html
+          for f in $(find ./html -name grype-*); do
+            cat $f >> repo/docs/grype.html
           done
           cd repo
           git config --global user.name "$ACTOR"
