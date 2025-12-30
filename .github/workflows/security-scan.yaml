@@ -107,22 +107,28 @@ jobs:
           mkdir -p repo/docs
           mkdir -p html
           for f in $(find ./sarif -name *.csv); do
-            title=$(basename ${f/.csv})
-            title=${title/trivy-}
-            title=${title/grype-}
-            echo "Title: ${title}"
             csv2html -o html/$(basename ${f/.csv}).html \
-            --title ${title} \
-            --complete-document \
             --table 'border="1px solid black"  border-collapse="collapse"' \
             --tr 'border="1px solid black"  border-collapse="collapse"' \
             --th 'border="1px solid black"  border-collapse="collapse"' \
             $f 
           done
-          :> repo/docs/trivy.html
+          :> repo/docs/index.html
+          echo "Creating document heading"
+          echo """
+          <!DOCTYPE html>
+          <html>
+          <head><title>Grype and Trivy report</title></head>
+          <body>
+          """ > repo/docs/trivy.html
           for f in $(find ./html -name trivy-*); do
+            title=$(basename ${f/.html})
+            title=${title/trivy-}
+            title=${title/grype-}
+            echo "Title: ${title}"
+
             cp $f repo/docs/
-            cat $f >> repo/docs/trivy.html
+            cat $f >> repo/docs/index.html
           done
           :> repo/docs/grype.html
           for f in $(find ./html -name grype-*); do
