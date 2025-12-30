@@ -103,13 +103,14 @@ jobs:
       - name: Install CSV-KIT
         run: |
           sudo apt-get update
+          cargo install csv2html
           sudo apt-get -y install csvkit
 
       - name: Print packages
         run: |
           mkdir -p repo/html
           for f in $(find ./sarif -name *.csv); do
-            csv2html $f > repo/docs/$(basename ${f/.csv}).html
+            csv2html -o repo/docs/$(basename ${f/.csv}).html $f 
           done
           cd repo
           # git checkout -b "gh_pages"
