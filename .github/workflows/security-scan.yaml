@@ -95,9 +95,9 @@ jobs:
 
       - name: Install CSV-KIT
         run: |
-          sudo apt-get update
+          # sudo apt-get update
           cargo install csv2html
-          sudo apt-get -y install csvkit
+          # sudo apt-get -y install csvkit
 
       - name: Print packages
         run: |
