@@ -118,7 +118,7 @@ jobs:
           <button class="collapsible">Grype Report</button>
           <div class="content">
           """ > repo/docs/index.html
-          for f in $(find ./html -name grype-*); do
+          for f in $(find ./html -name grype-* | sort); do
             title=$(basename ${f/.html})
             title=${title/grype-}
             cp $f repo/docs/
@@ -135,7 +135,7 @@ jobs:
           <div class="content">
           """ >> repo/docs/index.html
           
-          for f in $(find ./html -name trivy-*); do
+          for f in $(find ./html -name trivy-* | sort); do
             title=$(basename ${f/.html})
             title=${title/trivy-}
             cp $f repo/docs/
