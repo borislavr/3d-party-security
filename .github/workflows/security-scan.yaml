@@ -111,7 +111,13 @@ jobs:
             title=${title/trivy-}
             title=${title/grype-}
             echo "Title: ${title}"
-            csv2html -o html/$(basename ${f/.csv}).html --title ${title} --complete-document $f 
+            csv2html -o html/$(basename ${f/.csv}).html \
+            --title ${title} \
+            --complete-document \
+            --table 'border="1px solid black"  border-collapse="collapse"' \
+            --tr 'border="1px solid black"  border-collapse="collapse"' \
+            --th 'border="1px solid black"  border-collapse="collapse"' \
+            $f 
           done
           :> repo/docs/trivy.html
           for f in $(find ./html -name trivy-*); do
