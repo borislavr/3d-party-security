@@ -136,6 +136,9 @@ jobs:
           """ >> repo/docs/index.html
           
           for f in $(find ./html -name trivy-*); do
+            title=$(basename ${f/.html})
+            title=${title/trivy-}
+            cp $f repo/docs/
             echo """
             <button class="collapsible">${title}</button>
             <div class="content">
