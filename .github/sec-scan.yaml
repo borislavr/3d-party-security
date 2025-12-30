@@ -6,20 +6,20 @@ qubership-jaeger:
   - envoyproxy/envoy:v1.35.2
   - ghcr.io/jaegertracing/spark-dependencies/spark-dependencies:latest
   - jaegertracing/example-hotrod:1.74.0
-  - jaegertracing/jaeger:2.11.0
-  - jaegertracing/jaeger-cassandra-schema:1.74.0
-  - jaegertracing/jaeger-es-index-cleaner:1.74.0
-  - jaegertracing/jaeger-es-rollover:1.74.0
+  # - jaegertracing/jaeger:2.11.0
+  # - jaegertracing/jaeger-cassandra-schema:1.74.0
+  # - jaegertracing/jaeger-es-index-cleaner:1.74.0
+  # - jaegertracing/jaeger-es-rollover:1.74.0
 qubership-logging-operator:
   - docker.io/alpine:3.21.3
   - docker.io/fluent/fluent-bit:4.0.1
   - docker.io/graylog/graylog:5.2.12
   - docker.io/mongo:5.0.31
-  - fluent/fluent-bit:3.0.6
-  - ghcr.io/jimmidyson/configmap-reload:v0.13.1
-  - ghcr.io/jimmidyson/configmap-reload:v0.15.0
-  - graylog/graylog:5.2.7
-  - mongo:5.0.19
+#   - fluent/fluent-bit:3.0.6
+#   - ghcr.io/jimmidyson/configmap-reload:v0.13.1
+#   - ghcr.io/jimmidyson/configmap-reload:v0.15.0
+#   - graylog/graylog:5.2.7
+#   - mongo:5.0.19
 # qubership-monitoring-operator:
 #   - docker.io/bitnami/kubectl:1.33.4
 #   - docker.io/bloomberg/goldpinger:3.10.2
