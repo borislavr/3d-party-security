@@ -95,9 +95,7 @@ jobs:
 
       - name: Install CSV-KIT
         run: |
-          # sudo apt-get update
           cargo install csv2html
-          # sudo apt-get -y install csvkit
 
       - name: Print packages
         env:
@@ -120,21 +118,39 @@ jobs:
           <html>
           <head><title>Grype and Trivy report</title></head>
           <body>
-          """ > repo/docs/trivy.html
-          for f in $(find ./html -name trivy-*); do
-            title=$(basename ${f/.html})
-            title=${title/trivy-}
-            title=${title/grype-}
-            echo "Title: ${title}"
-
-            cp $f repo/docs/
-            cat $f >> repo/docs/index.html
-          done
-          :> repo/docs/grype.html
+          <button class="collapsible">Grype Report</button>
+          <div class="content">
+          """ > repo/docs/index.html
           for f in $(find ./html -name grype-*); do
+            title=$(basename ${f/.html})
+            title=${title/grype-}
             cp $f repo/docs/
-            cat $f >> repo/docs/grype.html
+            echo """
+            <button class="collapsible">${title}</button>
+            <div class="content">
+            """ >> repo/docs/index.html
+            cat $f >> repo/docs/index.html
+            echo "</div>" >> repo/docs/index.html
           done
+          echo """
+          </div>
+          <button class="collapsible">Trivy Report</button>
+          <div class="content">
+          """ >> repo/docs/index.html
+          
+          for f in $(find ./html -name trivy-*); do
+            echo """
+            <button class="collapsible">${title}</button>
+            <div class="content">
+            """ >> repo/docs/index.html
+            cat $f >> repo/docs/index.html
+            echo "</div>" >> repo/docs/index.html
+          done
+          echo """
+            </div>
+            </body>
+          """ >> repo/docs/index.html
+          cat repo/templates/script.txt >> repo/docs/index.html
           cd repo
           git config --global user.name "$ACTOR"
           git config --global user.email "$ACTOR@users.noreply.github.com"
