@@ -108,7 +108,7 @@ jobs:
         run: |
           mkdir -p repo/html
           for f in $(find ./sarif -name *.csv); do
-            csv2html $f > repo/docs/${f/.csv}.html
+            csv2html $f > repo/docs/$(basename ${f/.csv}).html
           done
           cd repo
           # git checkout -b "gh_pages"
