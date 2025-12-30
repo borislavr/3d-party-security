@@ -106,9 +106,6 @@ jobs:
           mkdir -p html
           for f in $(find ./sarif -name *.csv); do
             csv2html -o html/$(basename ${f/.csv}).html \
-            --table 'border="1px solid black"  border-collapse="collapse"' \
-            --tr 'border="1px solid black"  border-collapse="collapse"' \
-            --th 'border="1px solid black"  border-collapse="collapse"' \
             $f 
           done
           :> repo/docs/index.html
