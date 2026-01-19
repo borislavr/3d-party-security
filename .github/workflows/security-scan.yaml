@@ -76,11 +76,11 @@ jobs:
     with:
       target: 'docker'
       image: ${{ matrix.package.image }}
-      only-high-critical: ${{ inputs.only-high-critical }}
-      trivy-scan: ${{ inputs.trivy-scan }}
-      grype-scan: ${{ inputs.grype-scan }}
-      continue-on-error: ${{ inputs.continue-on-error }}
-      only-fixed: ${{ inputs.only-fixed }}
+      only-high-critical: ${{ (github.event_name == 'schedule' && true) || inputs.only-high-critical }}
+      trivy-scan: ${{ (github.event_name == 'schedule' && true) || inputs.trivy-scan }}
+      grype-scan: ${{ (github.event_name == 'schedule' && true) || inputs.grype-scan }}
+      continue-on-error: ${{ (github.event_name == 'schedule' && true) || inputs.continue-on-error }}
+      only-fixed: ${{ (github.event_name == 'schedule' && true) || inputs.only-fixed }}
 
   create-report:
     needs: [security-scan-matrix]
