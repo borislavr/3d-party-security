@@ -125,10 +125,10 @@ jobs:
           """ > repo/docs/index.html
           for f in $(find ./html -name grype-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
-            criticals=$(grep -ic ">critical<" $f || true)
-            highs=$(grep -ic ">high<" $f || true)
-            mediums=$(grep -ic ">medium<" $f || true)
-            lows=$(grep -ic ">low<" $f || true)
+            criticals=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>critical' $f || true)
+            highs=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>high' $f || true)
+            mediums=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>medium' $f || true)
+            lows=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>low' $f || true)
             title=$(basename ${f/.html})
             title=${title/grype-}
             title=${title//_/-}
@@ -149,10 +149,10 @@ jobs:
 
           for f in $(find ./html -name trivy-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
-            criticals=$(grep -ic ">critical<" $f || true)
-            highs=$(grep -ic ">high<" $f || true)
-            mediums=$(grep -ic ">medium<" $f || true)
-            lows=$(grep -ic ">low<" $f || true)
+            criticals=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>critical' $f || true)
+            highs=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>high' $f || true)
+            mediums=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>medium' $f || true)
+            lows=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>low' $f || true)
             title=$(basename ${f/.html})
             title=${title/trivy-}
             title=${title//_/-}
