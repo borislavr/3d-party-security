@@ -110,14 +110,20 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         run: |
-          rm -rf repo/docs/*
-          mkdir -p repo/docs
+          cur_date_time=$(date +%Y-%m-%d_%H-%M-%S)
+          report_file_name=report-${cur_date_time}.html
+          report_dir=repo/docs/reports/${cur_date_time}
+          mkdir -p $report_dir
+          report_file_path=${report_dir}/${report_file_name}
+          echo "Report file path: ${report_file_path}"
+          # rm -rf repo/docs/*
+          # mkdir -p repo/docs
           mkdir -p html
           for f in $(find ./sarif -name *.csv); do
             csv2html -o html/$(basename ${f/.csv}).html \
             $f
           done
-          :> repo/docs/index.html
+          :> ${report_file_path}
           echo "Creating document heading"
           echo """
           <!DOCTYPE html>
@@ -126,7 +132,7 @@ jobs:
           <body>
           <button class="collapsible">Grype Report</button>
           <div class="content">
-          """ > repo/docs/index.html
+          """ > ${report_file_path}
           for f in $(find ./html -name grype-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
             criticals=$(grep -i -c '<tr><td>[^<]*</td>[^<]*<td>critical' $f || true)
@@ -137,19 +143,19 @@ jobs:
             title=${title/grype-}
             title=${title//_/-}
             title="${title} (C:${criticals} H:${highs} M:${mediums} L:${lows})"
-            cp $f repo/docs/
+            # cp $f repo/docs/
             echo """
             <button class="collapsible">${title}</button>
             <div class="content">
-            """ >> repo/docs/index.html
-            cat $f >> repo/docs/index.html
-            echo "</div>" >> repo/docs/index.html
+            """ >> ${report_file_path}
+            cat $f >> ${report_file_path}
+            echo "</div>" >> ${report_file_path}
           done
           echo """
           </div>
           <button class="collapsible">Trivy Report</button>
           <div class="content">
-          """ >> repo/docs/index.html
+          """ >> ${report_file_path}
 
           for f in $(find ./html -name trivy-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
@@ -161,19 +167,25 @@ jobs:
             title=${title/trivy-}
             title=${title//_/-}
             title="${title} (C:${criticals} H:${highs} M:${mediums} L:${lows})"
-            cp $f repo/docs/
+            # cp $f repo/docs/
             echo """
             <button class="collapsible">${title}</button>
             <div class="content">
-            """ >> repo/docs/index.html
-            cat $f >> repo/docs/index.html
-            echo "</div>" >> repo/docs/index.html
+            """ >> ${report_file_path}
+            cat $f >> ${report_file_path}
+            echo "</div>" >> ${report_file_path}
           done
           echo """
             </div>
             </body>
-          """ >> repo/docs/index.html
-          cat repo/templates/script.txt >> repo/docs/index.html
+          """ >> ${report_file_path}
+          cat repo/templates/script.txt >> ${report_file_path}
+      - name: Generate index.html
+        uses: jayanta525/github-pages-directory-listing@624ac8c4e56893256d3772f61a88e3b14d54314e  # v4.0.0
+        with:
+          FOLDER: repo/docs
+      - name: Commit and Push Report
+        run: |
           cd repo
           git config --global user.name "$ACTOR"
           git config --global user.email "$ACTOR@users.noreply.github.com"
