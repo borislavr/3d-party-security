@@ -47,8 +47,12 @@ jobs:
       - name: Read config
         id: config
         run: |
+          echo "only-high-critical: ${{ inputs.only-high-critical }}"
+          echo "trivy-scan: ${{ inputs.trivy-scan }}"
+          echo "grype-scan: ${{ inputs.grype-scan }}"
+          echo "continue-on-error: ${{ inputs.continue-on-error }}"
+          echo "only-fixed: ${{ inputs.only-fixed }}"
           echo "1. ==================================================================================="
-          yq --help
           yq -oj '.' $CONFIG_FILE
           echo "2. ==================================================================================="
           yq -oj '.' $CONFIG_FILE | jq -c 'to_entries | map({repo: .key, image: .value[]}) | {packages: .}'
