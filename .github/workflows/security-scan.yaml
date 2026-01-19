@@ -110,6 +110,7 @@ jobs:
         env:
           ACTOR: ${{ github.actor }}
         run: |
+          find ./repo/docs -name 'index.html' -exec rm "{}" \;
           cur_date_time=$(date +%Y-%m-%d_%H-%M-%S)
           report_file_name=report-${cur_date_time}.html
           report_dir=repo/docs/reports/${cur_date_time}
