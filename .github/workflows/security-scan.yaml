@@ -106,7 +106,7 @@ jobs:
           mkdir -p html
           for f in $(find ./sarif -name *.csv); do
             csv2html -o html/$(basename ${f/.csv}).html \
-            $f 
+            $f
           done
           :> repo/docs/index.html
           echo "Creating document heading"
@@ -119,6 +119,7 @@ jobs:
           <div class="content">
           """ > repo/docs/index.html
           for f in $(find ./html -name grype-* | sort); do
+            sed -i 's/<table>/<table class="severity-table">/' $f
             title=$(basename ${f/.html})
             title=${title/grype-}
             cp $f repo/docs/
@@ -134,8 +135,9 @@ jobs:
           <button class="collapsible">Trivy Report</button>
           <div class="content">
           """ >> repo/docs/index.html
-          
+
           for f in $(find ./html -name trivy-* | sort); do
+            sed -i 's/<table>/<table class="severity-table">/' $f
             title=$(basename ${f/.html})
             title=${title/trivy-}
             cp $f repo/docs/
