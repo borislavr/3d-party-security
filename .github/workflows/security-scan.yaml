@@ -185,6 +185,8 @@ jobs:
         with:
           FOLDER: repo/docs
       - name: Commit and Push Report
+        env:
+          ACTOR: ${{ github.actor }}
         run: |
           cd repo
           git config --global user.name "$ACTOR"
