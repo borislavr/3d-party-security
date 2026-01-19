@@ -13,6 +13,21 @@
       }
     });
   }
+document.querySelectorAll('.severity-table tbody tr').forEach(row => {
+  const severityCell = row.cells[1];
+  const value = severityCell.textContent.trim().toUpperCase();
+
+  if (value === 'CRITICAL') {
+    row.classList.add('severity-critical');
+  } else if (value === 'HIGH') {
+    row.classList.add('severity-high');
+  } else if (value === 'MEDIUM') {
+    row.classList.add('severity-medium');
+  } else if (value === 'LOW') {
+    row.classList.add('severity-low');
+  }
+});
+
 </script>
 
 <style>
@@ -21,7 +36,7 @@
     border-collapse: collapse;
   }
   .collapsible {
-    background-color: #777;
+    background-color: #505777;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -30,7 +45,7 @@
   }
 
   .active, .collapsible:hover {
-    background-color: #555;
+    background-color: #566c8f;
   }
 
   .collapsible:after {
@@ -49,4 +64,8 @@
     overflow: hidden;
     background-color: #f1f1f1;
   }
+  .severity-critical { background-color: #e47580; color: white; }
+  .severity-high     { background-color: #f89e53; color: black; }
+  .severity-medium   { background-color: #f8d15d; color: black; }
+  .severity-low      { background-color: #e2e3e5; color: black; }
 </style>
