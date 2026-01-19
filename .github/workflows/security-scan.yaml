@@ -112,9 +112,10 @@ jobs:
         run: |
           mkdir -p repo/docs
           find ./repo/docs -name 'index.html' -exec rm "{}" \;
+          cur_date=$(date +%Y-%m-%d)
           cur_date_time=$(date +%Y-%m-%d_%H-%M-%S)
           report_file_name=report-${cur_date_time}.html
-          report_dir=repo/docs/reports/${cur_date_time}
+          report_dir=repo/docs/reports/${cur_date}
           mkdir -p $report_dir
           report_file_path=${report_dir}/${report_file_name}
           echo "Report file path: ${report_file_path}"
