@@ -1,4 +1,4 @@
-<table>
+<table class="severity-table">
 <tr><th>CVE</th><th>Severity</th><th>Package</th><th>Affected Version</th><th>Fix Version</th><th>Summary</th></tr>
 <tr><td>CVE-2023-4911</td><td>HIGH</td><td>glibc</td><td>2.28-189.5.el8_6</td><td>2.28-225.el8_8.6</td><td>A buffer overflow was discovered in the GNU C Library's dynamic loader ld.so while processing the GLIBC_TUNABLES environment variable. This issue could allow a local attacker to use maliciously crafted GLIBC_TUNABLES environment variables when launching binaries with SUID permission to execute code with elevated privileges.</td></tr>
 <tr><td>CVE-2024-2961</td><td>HIGH</td><td>glibc</td><td>2.28-189.5.el8_6</td><td>2.28-251.el8_10.1</td><td>The iconv() function in the GNU C Library versions 2.39 and older may overflow the output buffer passed to it by up to 4 bytes when converting strings to the ISO-2022-CN-EXT character set, which may be used to crash an application or overwrite a neighbouring variable.</td></tr>

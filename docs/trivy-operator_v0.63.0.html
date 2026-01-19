@@ -1,4 +1,4 @@
-<table>
+<table class="severity-table">
 <tr><th>CVE</th><th>Severity</th><th>Package</th><th>Affected Version</th><th>Fix Version</th><th>Summary</th></tr>
 <tr><td>CVE-2025-58183</td><td>HIGH</td><td>stdlib</td><td>v1.25.0</td><td>1.24.8, 1.25.2</td><td>tar.Reader does not set a maximum size on the number of sparse region data blocks in GNU tar pax 1.0 sparse files. A maliciously-crafted archive containing a large number of sparse regions can cause a Reader to read an unbounded amount of data from the archive into memory. When reading from a compressed source, a small compressed input can result in large allocations.</td></tr>
 <tr><td>CVE-2025-61729</td><td>HIGH</td><td>stdlib</td><td>v1.25.0</td><td>1.24.11, 1.25.5</td><td>Within HostnameError.Error(), when constructing an error string, there is no limit to the number of hosts that will be printed out. Furthermore, the error string is constructed by repeated string concatenation, leading to quadratic runtime. Therefore, a certificate provided by a malicious actor can result in excessive resource consumption.</td></tr>

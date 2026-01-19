@@ -1,4 +1,4 @@
-<table>
+<table class="severity-table">
 <tr><th>CVE</th><th>Severity</th><th>Package</th><th>Affected Version</th><th>Fix Version</th><th>Summary</th></tr>
 <tr><td>CVE-2018-15727</td><td>CRITICAL</td><td>github.com/grafana/grafana</td><td>v0.0.0-20250808195315-7d067d343a36+dirty</td><td>4.6.4, 5.2.3</td><td>Grafana 2.x, 3.x, and 4.x before 4.6.4 and 5.x before 5.2.3 allows authentication bypass because an attacker can generate a valid &quot;remember me&quot; cookie knowing only a username of an LDAP or OAuth user.</td></tr>
 <tr><td>CVE-2023-3128</td><td>CRITICAL</td><td>github.com/grafana/grafana</td><td>v0.0.0-20250808195315-7d067d343a36+dirty</td><td>9.4.13, 9.3.16, 9.2.20, 8.5.27</td><td>Grafana is validating Azure AD accounts based on the email claim.   On Azure AD, the profile email field is not unique and can be easily modified.   This leads to account takeover and authentication bypass when Azure AD OAuth is configured with a multi-tenant app.</td></tr>
