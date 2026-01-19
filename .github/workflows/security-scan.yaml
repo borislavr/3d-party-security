@@ -72,6 +72,11 @@ jobs:
     with:
       target: 'docker'
       image: ${{ matrix.package.image }}
+      only-high-critical: ${{ github.event.inputs.only-high-critical || 'true' }}
+      trivy-scan: ${{ github.event.inputs.trivy-scan || 'true' }}
+      grype-scan: ${{ github.event.inputs.grype-scan || 'true' }}
+      continue-on-error: ${{ github.event.inputs.continue-on-error || 'true' }}
+      only-fixed: ${{ github.event.inputs.only-fixed || 'true' }}
 
   create-report:
     needs: [security-scan-matrix]
@@ -120,8 +125,14 @@ jobs:
           """ > repo/docs/index.html
           for f in $(find ./html -name grype-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
+            criticals=$(grep -ic ">critical<" $f || true)
+            highs=$(grep -ic ">high<" $f || true)
+            mediums=$(grep -ic ">medium<" $f || true)
+            lows=$(grep -ic ">low<" $f || true)
             title=$(basename ${f/.html})
             title=${title/grype-}
+            title=${title//_/-}
+            title="${title} (C:${criticals} H:${highs} M:${mediums} L:${lows})"
             cp $f repo/docs/
             echo """
             <button class="collapsible">${title}</button>
@@ -138,8 +149,14 @@ jobs:
 
           for f in $(find ./html -name trivy-* | sort); do
             sed -i 's/<table>/<table class="severity-table">/' $f
+            criticals=$(grep -ic ">critical<" $f || true)
+            highs=$(grep -ic ">high<" $f || true)
+            mediums=$(grep -ic ">medium<" $f || true)
+            lows=$(grep -ic ">low<" $f || true)
             title=$(basename ${f/.html})
             title=${title/trivy-}
+            title=${title//_/-}
+            title="${title} (C:${criticals} H:${highs} M:${mediums} L:${lows})"
             cp $f repo/docs/
             echo """
             <button class="collapsible">${title}</button>
