@@ -72,7 +72,7 @@ jobs:
       matrix:
         package: "${{ fromJson(needs.load-config.outputs.packages) }}"
     name: "${{ matrix.package.image }}"
-    uses: netcracker/qubership-workflow-hub/.github/workflows/re-security-scan.yml@396774180000abdb825cbf150b56cc59c6913db8 #v2.0.5
+    uses: netcracker/qubership-workflow-hub/.github/workflows/re-security-scan.yml@feat/re-security-scan-param          # 396774180000abdb825cbf150b56cc59c6913db8 #v2.0.5
     with:
       target: 'docker'
       image: ${{ matrix.package.image }}
@@ -81,6 +81,7 @@ jobs:
       grype-scan: ${{ (github.event_name == 'schedule' && true) || inputs.grype-scan }}
       continue-on-error: ${{ (github.event_name == 'schedule' && true) || inputs.continue-on-error }}
       only-fixed: ${{ (github.event_name == 'schedule' && true) || inputs.only-fixed }}
+      upload-sarif-to-security: false
 
   create-report:
     needs: [security-scan-matrix]
