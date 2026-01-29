@@ -20,8 +20,8 @@ qubership-logging-operator:
   # - mongo:5.0.19
 qubership-monitoring-operator:
   - docker.io/bloomberg/goldpinger:3.10.2
-  - docker.io/grafana/grafana-image-renderer:3.12.9
   - docker.io/grafana/grafana:11.6.5
+  #  - docker.io/grafana/grafana-image-renderer:3.12.9
   # - docker.io/jimmidyson/configmap-reload:v0.5.0
   # - docker.io/joeelliott/cert-exporter:v2.14.0
   # - docker.io/prom/alertmanager:v0.28.1
