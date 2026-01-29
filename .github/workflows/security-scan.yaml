@@ -143,6 +143,7 @@ jobs:
               SAFE_NAME=${SAFE_NAME//-/_}
               echo "Safe name: $SAFE_NAME"
               ls -la ./sarif
+              echo "[DEBUG]: find ./sarif -name grype-${SAFE_NAME}*.csv -o -name trivy-${SAFE_NAME}*.csv"
 
               for f in $(find ./sarif -name grype-${SAFE_NAME}*.csv -o -name trivy-${SAFE_NAME}*.csv); do
                 echo "\"Componenet\",$(head -n 1 "$f")" > "$f__new"
