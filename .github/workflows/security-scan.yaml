@@ -101,6 +101,7 @@ jobs:
           fetch-depth: 0
 
       - name: Ensure branch exists
+        working-directory: repo
         run: |
           if git ls-remote --exit-code --heads origin "${{ env.BRANCH_NAME }}" >/dev/null 2>&1; then
             git fetch origin "${{ env.BRANCH_NAME }}"
