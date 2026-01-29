@@ -141,10 +141,12 @@ jobs:
               SAFE_NAME=${SHORT_NAME//:/_}
               SAFE_NAME=${SAFE_NAME//\//_}
               SAFE_NAME=${SAFE_NAME//-/_}
+              echo "Safe name: $SAFE_NAME"
+              ls -la ./sarif
 
               for f in $(find ./sarif -name grype-${SAFE_NAME}*.csv -o -name trivy-${SAFE_NAME}*.csv); do
                 echo "\"Componenet\",$(head -n 1 "$f")" > "$f__new"
-                tail -n +2 "$f" | sed "s/^/\"$default_value\",/" >> "$f__new"
+                tail -n +2 "$f" | sed "s/^/\"${component}\",/" >> "$f__new"
               done
             done
           done
