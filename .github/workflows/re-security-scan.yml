@@ -227,7 +227,7 @@ jobs:
                       ("grype"),
                       ("${{ needs.init.outputs.IMAGE }}"),
                       ($result.info | capture("Vulnerability (?<cve>.*)"; "n") | .cve),
-                      ($result.security_severity | tonumber | if . < 4 then "Low" elif . < 7 then "Medium" elif . < 9 then "High" else "Critical" end),
+                      ($result.security_severity | tonumber | if . < 4 then "LOW" elif . < 7 then "MEDIUM" elif . < 9 then "HIGH" else "CRITICAL" end),
                       ($result.info | capture("Package: (?<package>.*)"; "n") | .package),
                       ($result.info | capture("Version: (?<version>.*)"; "n") | .version),
                       ($result.info | capture("Fix Version: (?<fix_version>.*)"; "n") | .fix_version),
