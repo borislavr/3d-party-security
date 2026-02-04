@@ -135,9 +135,9 @@ jobs:
           mkdir -p $report_dir
           report_file_path=${report_dir}/${report_file_name}
           echo "Report file path: ${report_file_path}"
-          echo "[DEBUG] $(yq e 'keys[]' repo/${CONFIG_FILE})"
-          echo "[DEBUG] $(yq 'keys | .[]' repo/${CONFIG_FILE} | paste -sd ' ' -)"
-          for component in $(yq e 'keys[]' repo/${CONFIG_FILE}); do
+          # echo "[DEBUG] $(yq e 'keys[]' repo/${CONFIG_FILE})"
+          # echo "[DEBUG] $(yq 'keys | .[]' repo/${CONFIG_FILE} | paste -sd ' ' -)"
+          for component in $(yq 'keys | .[]' repo/${CONFIG_FILE} | paste -sd ' ' -); do
             echo "Processing $component's images..."
             images=$(yq e ".${component}[]" repo/${CONFIG_FILE})
             for image in $images; do
