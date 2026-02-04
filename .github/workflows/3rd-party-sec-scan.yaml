@@ -87,7 +87,7 @@ jobs:
       grype-scan: ${{ (github.event_name == 'schedule' && true) || inputs.grype-scan }}
       continue-on-error: ${{ (github.event_name == 'schedule' && true) || inputs.continue-on-error }}
       only-fixed: ${{ (github.event_name == 'schedule' && true) || inputs.only-fixed }}
-      upload-sarif-to-security: false
+      upload-sarif-to-security: true
 
   create-report:
     needs: [security-scan-matrix]
