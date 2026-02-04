@@ -40,7 +40,7 @@ permissions:
   contents: read
 
 env:
-  CONFIG_FILE: .qubership/3rd-party-sec-scan-config.yaml
+  CONFIG_FILE: .github/sec-scan-config.yaml
   REPORT_BRANCH: reports
 jobs:
   load-config:
