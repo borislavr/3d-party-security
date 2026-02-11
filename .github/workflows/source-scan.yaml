@@ -47,7 +47,7 @@ jobs:
       security-events: write
       contents: read
       packages: read
-    uses: netcracker/qubership-workflow-hub/.github/workflows/re-security-scan.yml@borislavr-patch-1
+    uses: netcracker/qubership-workflow-hub/.github/workflows/re-security-scan.yml@v2.0.10
     with:
       target: 'source'
       only-high-critical: ${{ (github.event_name == 'schedule' && true) || inputs.only-high-critical }}
@@ -55,7 +55,7 @@ jobs:
       grype-scan: ${{ (github.event_name == 'schedule' && true) || inputs.grype-scan }}
       continue-on-error: ${{ (github.event_name == 'schedule' && true) || inputs.continue-on-error }}
       only-fixed: ${{ (github.event_name == 'schedule' && true) || inputs.only-fixed }}
-      upload-sarif-to-security: true
+      upload-sarif-to-security: false
 
   create-report:
     needs: [security-scan]
@@ -123,3 +123,4 @@ jobs:
           git add .
           git commit -m "CSV report ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" || echo "No changes"
           git push origin "${REPORT_BRANCH}"
+
