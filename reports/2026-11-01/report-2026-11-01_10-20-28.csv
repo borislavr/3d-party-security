@@ -1,0 +1,2 @@
+"Tool","Image","CVE","Severity","Package","Affected Version","Fix Version","Summary"
+"grype","","GHSA-69fq-xp46-6x23","CRITICAL","aquasecurity/trivy-action","0.33.1","0.35.0","A critical vulnerability in github-action package: aquasecurity/trivy-action, version 0.33.1 was found at: /.github/workflows/re-security-scan.yml"
